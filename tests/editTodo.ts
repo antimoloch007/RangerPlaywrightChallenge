@@ -42,4 +42,11 @@ export async function run(page: Page, params) {
     await page.keyboard.press('Enter');
 
     // TODO: Finish this test to actually edit a todo and verify the changes
+    await page.getByText('send package').dblclick();
+    await page.getByRole('textbox', { name: 'Edit' }).fill('send packages');
+    await page.getByRole('textbox', { name: 'Edit' }).press('Enter');
+
+    // Check that the item was edited correctly
+    await expect(page.getByText('send packages')).toBeVisible();
+    await expect(page.getByTestId('todo-count')).toHaveText('4 items left');
 }

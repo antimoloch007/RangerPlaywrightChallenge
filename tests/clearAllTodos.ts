@@ -44,40 +44,62 @@ export async function run(page: Page, params) {
     //// PLAYWRIGHT_STEP_START id=67410e663c095c7f492df9a2
     ////      Description: Click on the checkbox for 'buy apples'
 
-    const buyApplesCheckboxLocator = page.getByRole('textbox');
-    await buyApplesCheckboxLocator.waitFor({
-        state: 'visible',
-        timeout: 20000,
-    });
-    await buyApplesCheckboxLocator.click();
+    // const buyApplesCheckboxLocator = page.getByRole('textbox');
+    // await buyApplesCheckboxLocator.waitFor({
+    //     state: 'visible',
+    //     timeout: 20000,
+    // });
+    // await buyApplesCheckboxLocator.click();
+
+    // Update click checkbox for buy apples to mark as completed or remove.
+    await page.getByRole('listitem').filter({ hasText: 'buy apples' }).getByLabel('Toggle Todo').check();
+    await expect(page.getByTestId('todo-count')).toHaveText('3 items left');
 
     //// PLAYWRIGHT_STEP_START id=67410e7f3c095c7f492df9a3
     ////      Description: Click on the 'clean house' checkbox
 
-    const cleanHouseCheckbox = page.getByRole('textbox');
-    await cleanHouseCheckbox.waitFor({ state: 'visible', timeout: 20000 });
-    await cleanHouseCheckbox.click();
+    // const cleanHouseCheckbox = page.getByRole('textbox');
+    // await cleanHouseCheckbox.waitFor({ state: 'visible', timeout: 20000 });
+    // await cleanHouseCheckbox.click();
+
+    // Update click checkbox for buy clean house to mark as completed or remove.
+    await page.getByRole('listitem').filter({ hasText: 'clean house' }).getByLabel('Toggle Todo').check();
+    await expect(page.getByTestId('todo-count')).toHaveText('2 items left');
 
     //// PLAYWRIGHT_STEP_START id=67410e923c095c7f492df9a4
     ////      Description: Check the checkbox for the item 'send package'
 
-    const sendPackageCheckbox = page.getByRole('textbox');
-    await sendPackageCheckbox.waitFor({ state: 'visible', timeout: 20000 });
-    await sendPackageCheckbox.click();
+    // const sendPackageCheckbox = page.getByRole('textbox');
+    // await sendPackageCheckbox.waitFor({ state: 'visible', timeout: 20000 });
+    // await sendPackageCheckbox.click();
+
+    // Update click checkbox for buy send package to mark as completed or remove.
+    await page.getByRole('listitem').filter({ hasText: 'send package' }).getByLabel('Toggle Todo').check();
+    await expect(page.getByTestId('todo-count')).toHaveText('1 item left');
 
     //// PLAYWRIGHT_STEP_START id=67410ea53c095c7f492df9a5
     ////      Description: Click on the 'mow lawn' checkbox
 
-    const mowLawnCheckbox = page.getByRole('textbox');
-    await mowLawnCheckbox.waitFor({ state: 'visible', timeout: 20000 });
-    await mowLawnCheckbox.click();
+    // const mowLawnCheckbox = page.getByRole('textbox');
+    // await mowLawnCheckbox.waitFor({ state: 'visible', timeout: 20000 });
+    // await mowLawnCheckbox.click();
+
+    // Update click checkbox for buy mow lawn to mark as completed or remove.
+    await page.getByRole('listitem').filter({ hasText: 'mow lawn' }).getByLabel('Toggle Todo').check();
+    await expect(page.getByTestId('todo-count')).toHaveText('0 items left');
 
     //// PLAYWRIGHT_STEP_START id=67410eb93c095c7f492df9a6
     ////      Description: Click on 'Clear completed' button to remove all completed tasks.
 
-    const clearCompletedButton = page.getByRole('button', {
-        name: 'Clear completed',
-    });
-    await clearCompletedButton.waitFor({ state: 'visible', timeout: 20000 });
-    await clearCompletedButton.click();
+    // const clearCompletedButton = page.getByRole('button', {
+    //     name: 'Clear completed',
+    // });
+    // await clearCompletedButton.waitFor({ state: 'visible', timeout: 20000 });
+    // await clearCompletedButton.click();
+
+    // Clear completed tasks
+    await page.getByRole('button', { name: 'Clear completed' }).click();
+
+    // Check that the completed tasks are removed
+    await expect(page.getByTestId('todo-title')).toHaveCount(0);
 }

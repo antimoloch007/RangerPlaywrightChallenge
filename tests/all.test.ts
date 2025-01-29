@@ -12,7 +12,7 @@ test('Add todos', async ({ page }) => {
     await addTodos(page, {});
 });
 
-test.skip('Edit todo', async ({ page }) => {
+test('Edit todo', async ({ page }) => {
     await editTodo(page, {});
 });
 

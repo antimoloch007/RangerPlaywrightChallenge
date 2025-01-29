@@ -48,12 +48,15 @@ export async function run(page: Page, params) {
     await buyApplesCheckbox.waitFor({ state: 'visible', timeout: 20000 });
     await buyApplesCheckbox.click();
 
-    //// PLAYWRIGHT_STEP_START id=67411129dbc142f1141d9562
-    ////      Description: Click delete button on 'buy apples' todo item
+    // PLAYWRIGHT_STEP_START id=67411129dbc142f1141d9562
+    //      Description: Click delete button on 'buy apples' todo item
 
-    const deleteBuyApplesButton = page
-        .locator("label:has-text('buy apples') + button")
-        .first();
-    await deleteBuyApplesButton.waitFor({ state: 'visible', timeout: 20000 });
-    await deleteBuyApplesButton.click();
+    // Delete buy apples todo item
+    await page.getByText('buy apples').click();
+    await page.getByRole('button', { name: 'Delete' }).click();
+
+    // Confirm there are now only 3 items left and that it is not visible
+    const buyApplesCheckboxLocator = page.getByText('buy apples')
+    await expect(buyApplesCheckboxLocator).not.toBeVisible();
+    await expect(page.getByTestId('todo-count')).toHaveText('3 items left');
 }
